@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Attachment:</b>
+  <%= @medium.attachment %>
+</p>
+
+<p>
+  <b>Album:</b>
+  <%= @medium.album_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_medium_path(@medium) %> |
+<%= link_to 'Back', media_path %>

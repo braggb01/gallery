@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<%= render "layouts/top_nav" %>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<% flash.each do |name, msg| %>
+				  <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+				    <a class="close" data-dismiss="alert">×</a>
+				    <%= msg %>
+				  </div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<%= yield :information %>
+		<%= yield :sidebar %>
+		<%= yield %>
+	</div>
+</body>
+</html>
