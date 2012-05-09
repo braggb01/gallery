@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require jquery.plupload.queue
+ *= require colorbox
  *= require_tree .
 */

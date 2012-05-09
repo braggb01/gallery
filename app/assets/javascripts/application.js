@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require twitter/bootstrap
 //= require plupload
+//= require jquery.colorbox
 
 // optional, only needed if you'd like to use plupload localized
 // require plupload/i18n/de

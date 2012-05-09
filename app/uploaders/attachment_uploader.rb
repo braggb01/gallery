@@ -39,6 +39,9 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   version :thumb do
     process :resize_to_fill => [260,180]
   end
+  version :modal do
+    process :resize_to_fit => [1024,768]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

@@ -1,18 +1,34 @@
+<% content_for :sidebar do %>
+  <div class="span2">
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+          <%= link_to 'Edit', edit_album_path(@album) %>
+        </li>
+        <li>
+          <%= link_to 'Back', albums_path %>
+        </li>
+        <li>
+          <%= link_to 'Add Photos', '#mymodal', 'data-toggle' => 'modal' %>
+        </li>
+    </ul>
+  </div>
+<% end %>
 <div class="span10">
 	<h3><%= @album.title %></h3>
 	<ul class="thumbnails" id="media">
 		<%= render @album.media %>
 	</ul>
-	<%= link_to 'Edit', edit_album_path(@album) %> |
-	<%= link_to 'Back', albums_path %>
-
-	<a class="btn btn-primary" href="#uploader" data-toggle="modal">Add Photos</a><div id="uploader" class="modal hide fade"/>
+	
+  <div id="mymodal" class="modal hide fade in">
+    <div id="uploader" />
+  </div>
 
 <script type="text/javascript">
  $(function(){
     $("#uploader").pluploadQueue({
-      runtimes: 'gears,flash,silverlight,browserplus,html5',
+      runtimes: 'html5,flash,silverlight,browserplus',
       url: '/albums/<%= @album.id %>/media',
+      container: 'uploader',
       multipart: true,
       multipart_params: {
       	'_http_accept': 'application/javascript',

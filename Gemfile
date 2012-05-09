@@ -18,6 +18,7 @@ group :assets do
   gem 'therubyracer'
   gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem 'plupload-rails'
+  gem 'colorbox-on-rails'
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -25,6 +26,8 @@ end
 gem 'jquery-rails'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'mime-types'
+gem 'flash_cookie_session'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
