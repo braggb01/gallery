@@ -26,7 +26,7 @@ end
 gem 'jquery-rails'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'mime-types'
+gem 'mime-types', :require => 'mime/types'
 gem 'flash_cookie_session'
 
 # To use ActiveModel has_secure_password

@@ -23,19 +23,31 @@
     <div id="uploader" />
   </div>
 
-<script type="text/javascript">
- $(function(){
+
+<%= javascript_tag do %>
+ jQuery(document).ready(function(){
     $("#uploader").pluploadQueue({
       runtimes: 'html5,flash,silverlight,browserplus',
-      url: '/albums/<%= @album.id %>/media',
+      url: '<%= album_media_path(@album) %>',
       container: 'uploader',
       multipart: true,
       multipart_params: {
-      	'_http_accept': 'application/javascript',
-        '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>',
-        '<%= request.session_options[:key] %>': '<%= request.session_options[:id] %>'
+        '_http_accept': 'text/javascript',
+        'format': 'js',
+        '<%= key = Rails.application.config.session_options[:key] %>': '<%= cookies[key] %>',
+        '<%=request_forgery_protection_token %>': '<%= form_authenticity_token %>'
+      },
+      filters: [
+        {title: "Images", extensions: "jpg,jpeg,png"}
+      ],
+      init: {
+        FileUploaded: function(up, file, info) {
+          eval(info["response"]);
+        }
       }
     });
   });
-</script>
+<% end %>
+
+
 </div>

@@ -42,18 +42,21 @@ class MediaController < ApplicationController
   # POST /media.json
   def create
     @album = Album.find(params[:album_id])
-    @medium = @album.media.create(:attachment => params[:file])
+    @medium = @album.media.new(:attachment => params[:file])
+    @medium.save!
 
-    respond_to do |format|
-      if @medium.save
-        # format.html { redirect_to album_path(@album), notice: 'Medium was successfully created.' }
-        # format.json { render json: @album, status: :created, location: @album }
-        format.js
-      else
-        format.html { render action: "new" }
-        format.json { render json: @medium.errors, status: :unprocessable_entity }
-      end
-    end
+    respond_to :js
+
+    # respond_to do |format|
+    #   if @medium.save
+    #     format.html { render :nothing => true }
+    #     # format.json { render json: @album, status: :created, location: @album }
+    #     format.js
+    #   else
+    #     format.html { render action: "new" }
+    #     format.json { render json: @medium.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PUT /media/1

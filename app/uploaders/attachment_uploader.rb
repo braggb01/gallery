@@ -36,11 +36,49 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
+  # version :thumb do
+  #   process :resize_to_fill => [400,180]
+  # end
+
   version :thumb do
-    process :resize_to_fill => [260,180]
+    process :brian_bragg => [260, 180]
   end
+
+  # version :modal do
+  #   process :resize_to_fit => [1024,768]
+  # end
+
   version :modal do
-    process :resize_to_fit => [1024,768]
+    process :brian_bragg_fit => [1024,768]
+  end
+
+  def brian_bragg(width, height, gravity = 'Center')
+    manipulate! do |img|
+      cols, rows = img[:dimensions]
+      img.combine_options do |cmd|
+        if width != cols || height != rows
+          scale = [width/cols.to_f, height/rows.to_f].max
+          cols = (scale * (cols + 0.5)).round
+          rows = (scale * (rows + 0.5)).round
+          cmd.resize "#{cols}x#{rows}"
+        end
+        cmd.auto_level
+        cmd.gravity gravity
+        cmd.background "rgba(255,255,255,0.0)"
+        cmd.extent "#{width}x#{height}" if cols != width || rows != height
+      end
+      img = yield(img) if block_given?
+      img
+    end
+  end
+
+  def brian_bragg_fit(width, height)
+    manipulate! do |img|
+      img.resize "#{width}x#{height}"
+      img.auto_level
+      img = yield(img) if block_given?
+      img
+    end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
