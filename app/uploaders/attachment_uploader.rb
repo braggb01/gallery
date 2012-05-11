@@ -7,8 +7,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
-  # include Sprockets::Helpers::RailsHelper
-  # include Sprockets::Helpers::IsolatedHelper
+  include Sprockets::Helpers::RailsHelper
+  include Sprockets::Helpers::IsolatedHelper
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -21,12 +21,12 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
+  def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+    asset_path("fallback/" + [version_name, "default.jpg"].compact.join('_'))
   #
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+  end
 
   # Process files as they are uploaded:
   # process :scale => [200, 300]
@@ -49,7 +49,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   version :modal do
-    process :brian_bragg_fit => [1024,768]
+    process :brian_bragg_fit => [512,512]
   end
 
   def brian_bragg(width, height, gravity = 'Center')
@@ -72,10 +72,18 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     end
   end
 
-  def brian_bragg_fit(width, height)
+  def brian_bragg_fit(width, height, colorize = '0,0,50', blackthreshold = '20%')
     manipulate! do |img|
+      # BlueShift It
+      #img.blue_shift blueshift
+      # Black Threshold
+      img.black_threshold blackthreshold
+      # colorize
+      img.background 'black'
+      img.vignette '0x1'
+      img.colorize colorize
       img.resize "#{width}x#{height}"
-      img.auto_level
+      # img.auto_level
       img = yield(img) if block_given?
       img
     end
