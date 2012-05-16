@@ -10,11 +10,13 @@
     </ul>
   </div>
 <% end %>
-<ul class="thumbnails" id="media">
-	<%= content_tag_for(:li, @medium, :class => 'span10') do %>
-		<%= link_to @medium.attachment_url(:modal).to_s, :class => 'thumbnail colorbox' do %>
-			<% image_tag (@medium.attachment_url(:showaction).to_s) %>
-		<% end %>
-	<% end %>
-<ul>
+<div class="span10">
+  <ul class="thumbnails" id="media">
+  	<%= content_tag_for(:li, @medium, :class => 'span10') do %>
+  		<%= link_to @medium.attachment_url(:modal).to_s, :class => 'thumbnail colorbox' do %>
+  			<% image_tag (@medium.attachment_url(:showaction).to_s) %>
+  		<% end %>
+  	<% end %>
+  <ul>
+</div>
 

@@ -10,6 +10,9 @@
         <li>
           <%= link_to 'Add Photos', '#mymodal', 'data-toggle' => 'modal' %>
         </li>
+        <li>
+          <%= link_to 'SlideShow', (asset_path("fallback/slideshow.png")), :class => 'gallery' %>
+        </li>
     </ul>
   </div>
 <% end %>
@@ -50,4 +53,9 @@
 <% end %>
 
 
+</div>
+<div>
+  <% @album.media.each do |medium| %>
+    <%= link_to '', medium.attachment_url(:modal).to_s, :class => 'gallery' %>
+  <% end %>
 </div>
