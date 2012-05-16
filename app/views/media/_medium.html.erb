@@ -1,5 +1,5 @@
 <%= content_tag_for(:li, medium, :class => 'span3') do %>
-	<%= link_to medium.attachment_url(:modal).to_s, :class => 'thumbnail colorbox' do %>
+	<%= link_to album_medium_path(@album,medium), :class => 'thumbnail' do %>
 		<%= image_tag (medium.attachment_url(:thumb).to_s) %>
 	<% end %>
 <% end %>

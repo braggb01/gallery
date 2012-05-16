@@ -13,14 +13,15 @@ class MediaController < ApplicationController
 
   # GET /media/1
   # GET /media/1.json
-  # def show
-  #   @medium = Medium.find(params[:id])
+  def show
+    @album = Album.find(params[:album_id])
+    @medium = Medium.find(params[:id])
 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @medium }
-  #   end
-  # end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @medium }
+    end
+  end
 
   # GET /media/new
   # GET /media/new.json

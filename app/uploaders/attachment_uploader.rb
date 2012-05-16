@@ -41,7 +41,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   version :thumb do
-    process :brian_bragg => [260, 180]
+    process :normal_thumb => [260, 180]
+  end
+  version :showaction do
+    process :normal_show => [1170, 250]
   end
 
   # version :modal do
@@ -49,10 +52,11 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   version :modal do
-    process :brian_bragg_fit => [512,512]
+    process :oldschool => [600,600]
   end
 
-  def brian_bragg(width, height, gravity = 'Center')
+# NORMAL THUMBNAIL GENERATION
+  def normal_thumb(width, height, gravity = 'Center')
     manipulate! do |img|
       cols, rows = img[:dimensions]
       img.combine_options do |cmd|
@@ -72,18 +76,39 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     end
   end
 
-  def brian_bragg_fit(width, height, colorize = '0,0,50', blackthreshold = '20%')
+# SHOW PAGE
+  def normal_show(width, height, gravity = 'Center')
+    manipulate! do |img|
+      cols, rows = img[:dimensions]
+      img.combine_options do |cmd|
+        if width != cols || height != rows
+          scale = [width/cols.to_f, height/rows.to_f].max
+          cols = (scale * (cols + 0.5)).round
+          rows = (scale * (rows + 0.5)).round
+          cmd.resize "#{cols}x#{rows}"
+        end
+        cmd.auto_level
+        cmd.gravity gravity
+        cmd.background "rgba(255,255,255,0.0)"
+        cmd.extent "#{width}x#{height}" if cols != width || rows != height
+      end
+      img = yield(img) if block_given?
+      img
+    end
+  end
+
+# OLDSCHOOL LOOK
+  def oldschool(width, height, colorize = '0,0,50', blackthreshold = '20%')
     manipulate! do |img|
       # BlueShift It
       #img.blue_shift blueshift
       # Black Threshold
       img.black_threshold blackthreshold
       # colorize
-      img.background 'black'
-      img.vignette '0x1'
       img.colorize colorize
       img.resize "#{width}x#{height}"
-      # img.auto_level
+      img.auto_level
+      img.brightness_contrast "10x15"
       img = yield(img) if block_given?
       img
     end

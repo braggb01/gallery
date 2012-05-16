@@ -1,15 +1,20 @@
-<p id="notice"><%= notice %></p>
+<% content_for :sidebar do %>
+  <div class="span2">
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+          <%= link_to 'Edit', edit_album_medium_path(@medium) %>
+        </li>
+        <li>
+          <%= link_to 'Back', album_path(@album) %>
+        </li>
+    </ul>
+  </div>
+<% end %>
+<ul class="thumbnails" id="media">
+	<%= content_tag_for(:li, @medium, :class => 'span10') do %>
+		<%= link_to @medium.attachment_url(:modal).to_s, :class => 'thumbnail colorbox' do %>
+			<% image_tag (@medium.attachment_url(:showaction).to_s) %>
+		<% end %>
+	<% end %>
+<ul>
 
-<p>
-  <b>Attachment:</b>
-  <%= @medium.attachment %>
-</p>
-
-<p>
-  <b>Album:</b>
-  <%= @medium.album_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_medium_path(@medium) %> |
-<%= link_to 'Back', media_path %>
