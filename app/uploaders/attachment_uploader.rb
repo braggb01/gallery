@@ -108,7 +108,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
       img.colorize colorize
       img.resize "#{width}x#{height}"
       img.auto_level
-      img.brightness_contrast "10x15"
       img = yield(img) if block_given?
       img
     end
