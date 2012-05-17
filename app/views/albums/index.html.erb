@@ -8,8 +8,9 @@
   </div>
 <% end %>
 
-<div class="span10">
-  <h1>Listing albums</h1>
+<div class="offset2">
+  <h1>My Albums</h1>
+  <hr/>
   <ul class="thumbnails">
     <% @albums.each do |album| %>
     <li class="span3">
@@ -21,7 +22,17 @@
         <% end %>
         <div class="caption">
           <h3 style="display:inline;"><%= album.title %></h3>
-          <p style="float:right;line-height:27px;"><%= link_to 'Show', album %> <%= link_to 'Edit', edit_album_path(album) %> <%= link_to 'Destroy', album, confirm: 'Are you sure?', method: :delete %></p>
+          <p style="float:right;line-height:27px;">
+            <%= link_to album, :style => "text-decoration:none;" do %> 
+              <i class="icon-large icon-eye-open"></i>
+            <% end %>
+            <%= link_to edit_album_path(album), :style => "text-decoration:none;" do  %>
+              <i class="icon-large icon-pencil"></i>
+            <% end %>
+            <%= link_to album, confirm: 'Are you sure?', method: :delete, :style => "text-decoration:none;" do %>
+              <i class="icon-large icon-remove"></i>
+            <% end %>
+          </p>
         </div>
       </div>
     </li>
