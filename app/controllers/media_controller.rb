@@ -35,9 +35,10 @@ class MediaController < ApplicationController
   # end
 
   # GET /media/1/edit
-  # def edit
-  #   @medium = Medium.find(params[:id])
-  # end
+  def edit
+    @album = Album.find(params[:album_id])
+    @medium = Medium.find(params[:id])
+  end
 
   # POST /media
   # POST /media.json

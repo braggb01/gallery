@@ -11,7 +11,7 @@
           <%= link_to 'Add Photos', '#mymodal', 'data-toggle' => 'modal' %>
         </li>
         <li>
-          <%= link_to 'SlideShow', (asset_path("fallback/slideshow.png")), :class => 'gallery' %>
+          <%= link_to 'SlideShow', '', :id => 'openGallery' %>
         </li>
     </ul>
   </div>
@@ -23,7 +23,7 @@
 	</ul>
 	
   <div id="mymodal" class="modal hide fade in">
-    <div id="uploader" />
+    <div id="uploader"></div>
   </div>
 
 
@@ -56,6 +56,6 @@
 </div>
 <div>
   <% @album.media.each do |medium| %>
-    <%= link_to '', medium.attachment_url(:modal).to_s, :class => 'gallery' %>
+    <%= link_to '', medium.attachment_url(:modal).to_s, :rel => 'gallery' %>
   <% end %>
-</div>
+</div> 

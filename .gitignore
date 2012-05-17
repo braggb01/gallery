@@ -16,3 +16,5 @@
 
 # Ignore all Images
 /public/uploads/
+
+/config/database.yml

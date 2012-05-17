@@ -1,6 +1,16 @@
-<h1>Editing medium</h1>
+<% content_for :sidebar do %>
+  <div class="span2">
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+          <%= link_to 'Show', album_medium_path(@album, @medium) %>
+        </li>
+    </ul>
+  </div>
+<% end %>
+<div class="span10">
+	<h1>Editing medium</h1>
 
-<%= render 'form' %>
+	<%= render 'form' %>
+</div>
 
-<%= link_to 'Show', @medium %> |
-<%= link_to 'Back', media_path %>
+
