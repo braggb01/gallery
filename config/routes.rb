@@ -2,7 +2,11 @@ Gallery::Application.routes.draw do
   
 
   resources :albums do
-    resources :media
+    resources :media do
+      member do
+        get 'crop'
+      end
+    end
   end
 
   # The priority is based upon order of creation:

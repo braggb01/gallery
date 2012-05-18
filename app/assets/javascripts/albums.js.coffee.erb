@@ -2,8 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-	$('a.colorbox').colorbox()
-	$gallery = $("a[rel=gallery]").colorbox({slideshow:true})
+	$('a.colorbox').colorbox({maxWidth:"90%", maxHeight:"90%"})
+	$gallery = $("a[rel=gallery]").colorbox({maxWidth:"90%", maxHeight:"90%",slideshow:true})
 	$("a#openGallery").click (e) ->
 	  e.preventDefault()
 	  $gallery.eq(0).click()

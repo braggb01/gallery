@@ -23,6 +23,16 @@ class MediaController < ApplicationController
     end
   end
 
+  def crop
+    @album = Album.find(params[:album_id])
+    @medium = Medium.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @medium }
+    end
+  end
+
   # GET /media/new
   # GET /media/new.json
   # def new

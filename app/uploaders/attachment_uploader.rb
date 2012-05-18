@@ -40,74 +40,32 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   #   process :resize_to_fill => [400,180]
   # end
 
-  version :thumb do
-    process :normal_thumb => [260, 180]
-  end
-  version :showaction do
-    process :normal_show => [1170, 250]
-  end
-
+  # version :thumb do
+  #   process :normal_thumb => [260, 180]
+  # end
+  # version :showaction do
+  #   process :normal_show => [1170, 250]
+  # end
   # version :modal do
-  #   process :resize_to_fit => [1024,768]
+  #   process :oldschool => [600,600]
   # end
 
   version :modal do
-    process :oldschool => [600,600]
+    process :oldschool => [1200,1200]
+  end
+  version :showaction, :from_version => :modal do
+    process :resize_to_fill => [1170, 250]
+  end
+  version :thumb, :from_version => :modal do
+    process :resize_to_fill => [260, 180]
   end
 
-# NORMAL THUMBNAIL GENERATION
-  def normal_thumb(width, height, gravity = 'Center')
+  def oldschool(width, height, blackthreshold = '15%')
     manipulate! do |img|
-      cols, rows = img[:dimensions]
-      img.combine_options do |cmd|
-        if width != cols || height != rows
-          scale = [width/cols.to_f, height/rows.to_f].max
-          cols = (scale * (cols + 0.5)).round
-          rows = (scale * (rows + 0.5)).round
-          cmd.resize "#{cols}x#{rows}"
-        end
-        cmd.auto_level
-        cmd.gravity gravity
-        cmd.background "rgba(255,255,255,0.0)"
-        cmd.extent "#{width}x#{height}" if cols != width || rows != height
-      end
-      img = yield(img) if block_given?
-      img
-    end
-  end
-
-# SHOW PAGE
-  def normal_show(width, height, gravity = 'Center')
-    manipulate! do |img|
-      cols, rows = img[:dimensions]
-      img.combine_options do |cmd|
-        if width != cols || height != rows
-          scale = [width/cols.to_f, height/rows.to_f].max
-          cols = (scale * (cols + 0.5)).round
-          rows = (scale * (rows + 0.5)).round
-          cmd.resize "#{cols}x#{rows}"
-        end
-        cmd.auto_level
-        cmd.gravity gravity
-        cmd.background "rgba(255,255,255,0.0)"
-        cmd.extent "#{width}x#{height}" if cols != width || rows != height
-      end
-      img = yield(img) if block_given?
-      img
-    end
-  end
-
-# OLDSCHOOL LOOK
-  def oldschool(width, height, colorize = '0,0,50', blackthreshold = '20%')
-    manipulate! do |img|
-      # BlueShift It
-      #img.blue_shift blueshift
-      # Black Threshold
       img.black_threshold blackthreshold
-      # colorize
-      img.colorize colorize
-      img.resize "#{width}x#{height}"
       img.auto_level
+      img.enhance
+      img.resize "#{width}x#{height}"
       img = yield(img) if block_given?
       img
     end
