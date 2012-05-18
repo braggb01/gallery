@@ -62,7 +62,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   def oldschool(width, height, blackthreshold = '15%')
     manipulate! do |img|
-      img.black_threshold blackthreshold
+      # img.black_threshold blackthreshold
       img.auto_level
       img.enhance
       img.resize "#{width}x#{height}"
