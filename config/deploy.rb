@@ -39,10 +39,10 @@ namespace :deploy do
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 
-  task :symlink_uploads do
-    run "ln -nfs #{shared_path}/uploads  #{release_path}/public/uploads"
-  end
-  after 'deploy:symlink_config', 'deploy:symlink_uploads'
+  # task :symlink_uploads do
+  #   run "ln -nfs #{shared_path}/uploads  #{release_path}/public/uploads"
+  # end
+  # after 'deploy:symlink_config', 'deploy:symlink_uploads'
 
 
   desc "Make sure local git is in sync with remote."
